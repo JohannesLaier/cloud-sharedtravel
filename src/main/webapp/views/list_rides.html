@@ -1,0 +1,55 @@
+<h1>Die besten {{ type == 'h' ? 'Hinfahrten' : 'Rückfahrten' }}</h1>
+
+<div class="loading" ng-show="loading">
+    <p>Suche nach Fahrten läuft...</p>
+    <img src="img/loading.gif" alt="Loading" />
+</div>
+
+<div class="error" ng-show="error">
+    <p>Es konnten keine Fahrten gefunden werden.</p>
+    <img src="img/error.svg" alt="Error. Nothing found." />
+</div>
+
+<div ng-repeat="ride in rides" class="panel panel-default" ng-hide="loading">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-2">
+                <img src="img/{{ride.sourceProvider}}-logo.png" class="providerLogo" alt="Provider Logo">
+            </div>
+            <div class="col-md-3">
+                <span class="glyphicon glyphicon-time" aria-hidden="true">
+                    {{ calcDuration(ride.duration) }}
+                </span>
+            </div>
+            <div class="col-md-2">
+                <span class="glyphicon glyphicon-road" aria-hidden="true">
+                    {{ ride.distance > 0 ? ride.distance + ' km' : 'Keine Angabe' }}
+                </span>
+            </div>
+            <div class="col-md-2">
+                {{ ride.price > 0 ? ride.price : 'VHB' }}
+                <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+            </div>
+            <div class="col col-md-3 center-block">
+                <button type="button" class="btn btn-primary" ng-click="select(ride)">Auswählen</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                Abfahrt:<br />
+                Datum: {{ ride.departureDate | date:'dd.MM.yyyy' }}<br />
+                Uhrzeit: {{ ride.departureDate | date:'HH:mm' }}<br />
+                Adresse: {{ ride.source.address }}
+            </div>
+            <div class="col-md-6">
+                Ankunft:<br />
+                Adresse: {{ ride.destination.address }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="css/subpage.css" />
+<link rel="stylesheet" href="css/views/list_rides.css" />

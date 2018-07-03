@@ -1,0 +1,147 @@
+<h1>Jetzt buchen:</h1>
+
+<div class="panel panel-default info">
+    <div class="panel-heading">
+       {{ info.from }} -> {{ info.to }}
+    </div>
+    <div class="panel-body">
+        <div class="row" ng-hide="!selectedRoom">
+            <h2>Unterkunft:</h2>
+            <div class="row">
+                <div class="col col-md-3">
+                    <img class="profileImage img-responsive img-circle" src="{{ selectedRoom.host.pictureUrl }}" />
+                    <strong>{{ selectedRoom.host.name }}</strong>
+                </div>
+                <div class="col col-md-6">
+                    <h3>{{ selectedRoom.name }}</h3>
+                    <strong>{{ selectedRoom.address }}</strong>
+                </div>
+                <div class="col col-md-3 center-block">
+                    <img src="img/{{selectedRoom.sourceProvider}}-logo.png" class="providerLogo" alt="Provider Logo">
+                    <a role="button" class="btn btn-primary" href="{{ selectedRoom.link }}" target="_blank">Jetzt Buchen</a>
+                </div>
+            </div>
+            <p>
+                {{ selectedRoom.description }}
+            </p>
+
+            <div class="row">
+                <div class="col col-md-4">
+                    <ul>
+                        <li>
+                            <span class="glyphicon glyphicon glyphicon-euro" aria-hidden="true"> {{ selectedRoom.price }} pro Nacht</span>
+                        </li>
+                        <li>
+                            <span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"> {{ selectedRoom.countOfBathrooms }} Bäder</span>
+                        </li>
+                        <li>
+                            <span class="glyphicon glyphicon glyphicon-bed" aria-hidden="true"> {{ selectedRoom.countOfBeds }} Betten</span>
+                        </li>
+                        <li>
+                            <span class="glyphicon glyphicon glyphicon-bed" aria-hidden="true"> {{ selectedRoom.countOfBedrooms }} Schafzimmer</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col col-md-4">
+
+                </div>
+
+                <div class="col col-md-4">
+                    <ul>
+                        <li ng-hide="(selectedRoom.rating || 0) <= 0">
+                            Rating:
+                            <span ng-repeat="n in [].constructor(selectedRoom.rating || 0) track by $index" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        </li>
+                        <li>
+                            Check-In: {{ selectedRoom.checkIn | date:'dd.MM.yyyy HH:mm'}} Uhr
+                        </li>
+                        <li>
+                            Check-Out: {{ selectedRoom.checkOut | date:'dd.MM.yyyy HH:mm'}} Uhr
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="details-{{ selectedRoom.id }}" class="row collapse">
+                <div class="row gallery">
+                    <div class="col col-md-3 img" ng-repeat="link in selectedRoom.links">
+                        <img class="img-responsive" alt="" src="{{ link }}" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr class="dividingline" />
+        <div class="row" ng-hide="!selectedRideOutward">
+            <h2>Abfahrt:</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="glyphicon glyphicon glyphicon-time" aria-hidden="true">{{ calcDuration(selectedRideOutward.duration) }}</span>
+                </div>
+                <div class="col-md-3">
+                <span class="glyphicon glyphicon glyphicon-road" aria-hidden="true">
+                    {{ ride.selectedRideOutward > 0 ? ride.selectedRideOutward + ' km' : 'Keine Angabe' }}
+                </span>
+                </div>
+                <div class="col-md-3">
+                    {{ selectedRideOutward.price > 0 ? selectedRideOutward.price : 'VHB' }}
+                    <span class="glyphicon glyphicon glyphicon-euro" aria-hidden="true"></span>
+                </div>
+                <div class="col col-md-3 center-block">
+                    <img src="img/{{selectedRideOutward.sourceProvider}}-logo.png" class="providerLogo" alt="Provider Logo">
+                    <a role="button" class="btn btn-primary" href="{{ selectedRideOutward.link }}" target="_blank">Jetzt Buchen</a>
+                </div>
+            </div>
+            <div class="row left">
+                <div class="col-md-6">
+                    Abfahrt:<br />
+                    Datum: {{ selectedRideOutward.departureDate | date:'dd.MM.yyyy' }}<br />
+                    Uhrzeit: {{ selectedRideOutward.departureDate | date:'HH:mm' }}<br />
+                    Adresse: {{ selectedRideOutward.source.address }}
+                </div>
+                <div class="col-md-6">
+                    Ankunft:<br />
+                    Adresse: {{ selectedRideOutward.destination.address }}
+                </div>
+            </div>
+        </div>
+        <hr class="dividingline" />
+        <div class="row" ng-hide="!selectedRideReturn">
+            <h2>Ankunft:</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true">{{ calcDuration(selectedRideReturn.duration) }}</span>
+                </div>
+                <div class="col-md-3">
+                <span class="glyphicon glyphicon-road" aria-hidden="true">
+                    {{ ride.selectedRideReturn > 0 ? ride.selectedRideReturn + ' km' : 'Keine Angabe' }}
+                </span>
+                </div>
+                <div class="col-md-3">
+                    {{ selectedRideReturn.price > 0 ? selectedRideReturn.price : 'VHB' }}
+                    <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+                </div>
+                <div class="col col-md-3 center-block">
+                    <img src="img/{{selectedRideReturn.sourceProvider}}-logo.png" class="providerLogo" alt="Provider Logo">
+                    <a role="button" class="btn btn-primary" href="{{ selectedRideReturn.link }}" target="_blank">Jetzt Buchen</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 left">
+                    Abfahrt:<br />
+                    Datum: {{ selectedRideReturn.departureDate | date:'dd.MM.yyyy' }}<br />
+                    Uhrzeit: {{ selectedRideReturn.departureDate | date:'HH:mm' }}<br />
+                    Adresse: {{ selectedRideReturn.source.address }}
+                </div>
+                <div class="col-md-6">
+                    Ankunft:<br />
+                    Adresse: {{ selectedRideReturn.destination.address }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="css/subpage.css" />
+<link rel="stylesheet" href="css/views/checkout.css" />

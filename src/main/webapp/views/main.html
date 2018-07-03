@@ -1,0 +1,88 @@
+<div id="main">
+    <h1 ng-show="all">Reisen Sie <strong>günstig</strong>, <strong>einfach</strong> und <strong>schnell</strong> in alle Welt!</h1>
+    <h1 ng-show="ride">Finden Sie eine <strong>günstige</strong> und <strong>schöne</strong> Unterkunft</h1>
+    <h1 ng-show="room">Finden Sie eine <strong>nette</strong> und <strong>chillige</strong> Mitfahrgelegenheit</h1>
+    <div class="row p-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Von" ng-required="true" ng-model="from">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-map-marker"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Paris, London, Berlin"  ng-required="true"  ng-model="to">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-map-marker"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class='col-lg-6'>
+                <div class="form-group">
+                    <div class='input-group date datepicker'>
+                        <input id="start" type='text' class="form-control" placeholder="Reise-Start" ng-required="true" ng-model="parent.start"/>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class='col-lg-6'>
+                <div class="form-group">
+                    <div class='input-group date datepicker'>
+                        <input id="end" type='text' class="form-control" placeholder="Reise-Ende" ng-required="true" ng-model="parent.end"/>
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <select class="form-control" placeholder="Anzahl Gäste" ng-required="true" ng-model="guests">
+                        <option value="" selected disabled>Anzahl der Reisenden</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div id="error">
+                <span ng-hide="everythingFilledOut">Alle Felder müssen ausgefüllt werden.</span>
+                <span ng-show="invalidDates">Startdatum muss kleiner als das Enddatum sein.</span>
+            </div>
+            <br/>
+            <button class="btn btn-lg btn-default" type="button" ng-click="find();">Explore the World!</button>
+        </div>
+
+
+    </div>
+</div>
+<script type="text/javascript">
+    $('.datepicker').datetimepicker({
+        //format : 'DD.MM.YYYY',
+        //locale : 'de'
+    });
+</script>
+
+<link rel="stylesheet" href="css/views/main.css" />

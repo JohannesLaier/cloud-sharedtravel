@@ -1,0 +1,90 @@
+<h1>Die besten Unterkünfte</h1>
+
+<div class="loading" ng-show="loading">
+    <p>Suche nach Unterkünften läuft...</p>
+    <img src="img/loading.gif" alt="Loading" />
+</div>
+
+<div class="error" ng-show="error">
+    <p>Es konnten keine Unterkünfte gefunden werden.</p>
+    <img src="img/error.svg" alt="Error. Nothing found." />
+</div>
+
+<div ng-repeat="room in rooms" class="panel panel-default description" data-toggle="collapse" data-target="#details-{{ room.id }}" ng-hide="loading">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col col-md-3">
+                <img class="profileImage img-responsive img-circle" src="{{ room.host.pictureUrl }}" />
+                <strong>{{ room.host.name }}</strong>
+            </div>
+            <div class="col col-md-6">
+                <h3>{{ room.name }}</h3>
+                <strong>{{ room.address }}</strong>
+                <div class="row">
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+                <div class="row">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </div>
+            </div>
+            <div class="col col-md-3 center-block">
+                <div class="row">
+                    <img src="img/{{room.sourceProvider}}-logo.png" class="providerLogo" alt="Provider Logo">
+                </div>
+                <div class="row">
+                    <button type="button" class="btn btn-primary" ng-click="select(room)">Auswählen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <span ng-repeat="line in (room.description | newlines) track by $index">
+            <p> {{line}}</p>
+        </span>
+
+        <div class="row">
+            <div class="col col-md-4">
+                <ul>
+                    <li>
+                        <span class="glyphicon glyphicon glyphicon-euro" aria-hidden="true"> {{ room.price }} pro Nacht</span>
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon glyphicon-user" aria-hidden="true"> {{ room.countOfBathrooms }} Bäder</span>
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon glyphicon-bed" aria-hidden="true"> {{ room.countOfBeds }} Betten</span>
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon glyphicon-bed" aria-hidden="true"> {{ room.countOfBedrooms }} Schafzimmer</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col col-md-4 col-md-offset-4">
+                <ul>
+                    <li ng-hide="(room.rating || 0) <= 0">
+                        Rating:
+                        <span ng-repeat="n in [].constructor(room.rating || 0) track by $index" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    </li>
+                    <li>
+                        Check-In: {{ room.checkIn | date:'dd.MM.yyyy HH:mm'}} Uhr
+                    </li>
+                    <li>
+                        Check-Out: {{ room.checkOut | date:'dd.MM.yyyy HH:mm'}} Uhr
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="details-{{ room.id }}" class="row collapse">
+            <div class="row gallery">
+                <div class="col col-md-3 img" ng-repeat="link in room.links">
+                    <img class="img-responsive" alt="" src="{{ link }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="css/subpage.css" />
+<link rel="stylesheet" href="css/views/list_rooms.css" />

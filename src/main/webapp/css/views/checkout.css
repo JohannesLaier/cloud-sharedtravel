@@ -1,0 +1,29 @@
+.info .profileImage {
+    height: 75px;
+    margin: 10px auto;
+}
+
+.info ul {
+    text-align: left;
+    list-style-type: none;
+}
+
+.info .panel-body {
+    padding: 50px;
+}
+
+.info .panel-body .left {
+    text-align: left;
+}
+
+.providerLogo {
+    height: 40px;
+}
+
+.glyphicon {
+    padding-right: 3px;
+}
+
+.dividingline {
+    border-color: grey;
+}
